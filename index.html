@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORNEXUS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="assests/favicon.ico" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #e5e5e5;
+            overflow-x: hidden;
+        }
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        .hero-glow {
+            text-shadow: 0 0 15px rgba(79, 70, 229, 0.7), 0 0 30px rgba(79, 70, 229, 0.5);
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(79, 70, 229, 0.8);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        .highlight-card {
+            border-color: #4f46e5;
+            transform: scale(1.05);
+        }
+        .btn-primary {
+            background: linear-gradient(45deg, #4f46e5, #818cf8);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(79, 70, 229, 0.5);
+        }
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(79, 70, 229, 0.8);
+        }
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .section-title {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(45deg, #4f46e5, #818cf8);
+            border-radius: 2px;
+        }
+        /* Scroll Animation */
+        .reveal {
+            position: relative;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: 1s all ease;
+        }
+        .reveal.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4f46e5;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div id="particles-js"></div>
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="header">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="assests/x2.png" alt="FORNEXUS Logo" class="h-20 w-auto mr-3">
+            </div>
+            <nav class="hidden md:flex space-x-8 text-sm font-medium">
+                <a href="#services" class="hover:text-indigo-400 transition-colors">Services</a>
+                <a href="#idea-generator" class="hover:text-indigo-400 transition-colors">✨ Idea Generator</a>
+                <a href="#pricing" class="hover:text-indigo-400 transition-colors">Pricing</a>
+                <a href="#how-it-works" class="hover:text-indigo-400 transition-colors">How It Works</a>
+                <a href="#about" class="hover:text-indigo-400 transition-colors">About</a>
+                <a href="#contact" class="hover:text-indigo-400 transition-colors">Contact</a>
+            </nav>
+            <a href="#contact" class="hidden md:block btn-primary text-white font-bold py-2 px-6 rounded-lg text-sm">
+                Get Started
+            </a>
+            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-black bg-opacity-90">
+             <a href="#services" class="block py-2 px-4 text-sm hover:bg-gray-800">Services</a>
+             <a href="#idea-generator" class="block py-2 px-4 text-sm hover:bg-gray-800">✨ Idea Generator</a>
+             <a href="#pricing" class="block py-2 px-4 text-sm hover:bg-gray-800">Pricing</a>
+             <a href="#how-it-works" class="block py-2 px-4 text-sm hover:bg-gray-800">How It Works</a>
+             <a href="#about" class="block py-2 px-4 text-sm hover:bg-gray-800">About</a>
+             <a href="#contact" class="block py-2 px-4 text-sm hover:bg-gray-800">Contact</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="relative pt-32 pb-20 md:pt-48 md:pb-32 text-center">
+        <div class="container mx-auto px-6">
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter mb-4 hero-glow">
+                Forge the Future with AI Agents
+            </h1>
+            <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto mb-8">
+                We build intelligent, autonomous agents that streamline your workflows, automate complex tasks, and unlock unprecedented levels of efficiency.
+            </p>
+            <a href="#services" class="btn-primary text-white font-bold py-4 px-10 rounded-lg text-lg">
+                Explore Our Agents
+            </a>
+        </div>
+    </main>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 section-title reveal">Our AI Solutions</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Agent Card 1 -->
+                <div class="card p-8 rounded-2xl reveal">
+                     <div class="text-indigo-400 mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a2 2 0 01-2-2V7a2 2 0 012-2h6l2-2h2l-2 2z" /></svg></div>
+                    <h3 class="text-xl font-bold mb-3">Customer Support Agents</h3>
+                    <p class="text-gray-400 text-sm">24/7 automated support that resolves customer queries instantly, improving satisfaction and reducing operational costs.</p>
+                </div>
+                <!-- Agent Card 2 -->
+                <div class="card p-8 rounded-2xl reveal">
+                     <div class="text-indigo-400 mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg></div>
+                    <h3 class="text-xl font-bold mb-3">Data Analysis Agents</h3>
+                    <p class="text-gray-400 text-sm">Uncover hidden insights from your data. Our agents process vast datasets to provide actionable intelligence and predictive analytics.</p>
+                </div>
+                <!-- Agent Card 3 -->
+                <div class="card p-8 rounded-2xl reveal">
+                     <div class="text-indigo-400 mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg></div>
+                    <h3 class="text-xl font-bold mb-3">Workflow Automation Agents</h3>
+                    <p class="text-gray-400 text-sm">Automate repetitive business processes, from data entry to content scheduling, freeing up your team to focus on strategic tasks.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Idea Generator Section -->
+    <section id="idea-generator" class="py-20 bg-black bg-opacity-20">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 section-title reveal">✨ AI Agent Idea Generator</h2>
+            <p class="text-lg text-gray-400 max-w-2xl mx-auto mb-8 reveal">
+                Stuck for ideas? Describe your business or a problem you're facing, and our AI will suggest custom agent solutions for you.
+            </p>
+            <div class="max-w-xl mx-auto reveal">
+                <form id="idea-generator-form" class="flex flex-col sm:flex-row gap-4">
+                    <input type="text" id="idea-input" placeholder="e.g., 'a busy real estate agency'" class="w-full flex-grow bg-gray-900 border border-gray-700 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-white">
+                    <button type="submit" id="generate-button" class="btn-primary text-white font-bold py-3 px-8 rounded-lg">
+                        Generate Ideas
+                    </button>
+                </form>
+            </div>
+            <div id="idea-loader" class="mt-8 hidden justify-center">
+                <div class="loader"></div>
+            </div>
+            <div id="idea-results" class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Generated ideas will be inserted here -->
+            </div>
+            <p id="idea-error" class="text-red-400 mt-4 hidden"></p>
+        </div>
+    </section>
+    
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 section-title reveal">Transparent Pricing for Every Scale</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-center">
+                
+                <!-- Starter Plan -->
+                <div class="card p-8 rounded-2xl reveal h-full flex flex-col">
+                    <h3 class="text-2xl font-bold mb-2">Starter</h3>
+                    <p class="text-gray-400 mb-6">For startups and small businesses getting started with AI.</p>
+                    <p class="text-4xl font-black mb-6">$1,500<span class="text-lg font-medium text-gray-400">/mo</span></p>
+                    <ul class="space-y-4 text-gray-300 mb-8 flex-grow">
+                        <li class="flex items-center"><span class="text-indigo-400 mr-3">&#10003;</span>1 Pre-built AI Agent</li>
+                        <li class="flex items-center"><span class="text-indigo-400 mr-3">&#10003;</span>Standard Integrations</li>
+                        <li class="flex items-center"><span class="text-indigo-400 mr-3">&#10003;</span>FAQ & Order Status Handling</li>
+                        <li class="flex items-center"><span class="text-indigo-400 mr-3">&#10003;</span>Basic Analytics Dashboard</li>
+                        <li class="flex items-center"><span class="text-indigo-400 mr-3">&#10003;</span>Email & Chat Support</li>
+                    </ul>
+                    <a href="#contact" class="w-full text-center mt-auto btn-primary text-white font-bold py-3 px-6 rounded-lg">Choose Plan</a>
+                </div>
+
+                <!-- Business Plan (Most Popular) -->
+                <div class="card p-8 rounded-2xl reveal h-full flex flex-col relative highlight-card">
+                     <div class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2">
+                        <span class="bg-indigo-500 text-white text-xs font-bold px-4 py-1 rounded-full uppercase">Most Popular</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Business</h3>
+                    <p class="text-gray-400 mb-6">For growing businesses scaling their operations with AI.</p>
+                    <p class="text-4xl font-black mb-6">$5,000<span class="text-lg font-medium text-gray-400">/mo</span></p>
+                    <ul class="space-y-4 text-gray-300 mb-8 flex-grow">
+                        <li class="flex items-center"><span class="text-indigo-400 mr-3">&#10003;</span>Up to 3 AI Agents</li>
+                        <li class="flex items-center"><span class="text-indigo-400 mr-3">&#10003;</span>Advanced Integrations (CRM)</li>
+                        <li class="flex items-center"><span class="text-indigo-400 mr-3">&#10003;</span>Lead Generation & RAG</li>
+                        <li class="flex items-center"><span class="text-indigo-400 mr-3">&#10003;</span>Performance Optimization</li>
+                        <li class="flex items-center"><span class="text-indigo-400 mr-3">&#10003;</span>Dedicated Account Manager</li>
+                    </ul>
+                    <a href="#contact" class="w-full text-center mt-auto btn-primary text-white font-bold py-3 px-6 rounded-lg">Choose Plan</a>
+                </div>
+
+                <!-- Enterprise Plan -->
+                <div class="card p-8 rounded-2xl reveal h-full flex flex-col">
+                    <h3 class="text-2xl font-bold mb-2">Enterprise</h3>
+                    <p class="text-gray-400 mb-6">For large organizations with custom, complex needs.</p>
+                    <p class="text-4xl font-black mb-6">Custom</p>
+                    <ul class="space-y-4 text-gray-300 mb-8 flex-grow">
+                        <li class="flex items-center"><span class="text-indigo-400 mr-3">&#10003;</span>Unlimited Custom Agents</li>
+                        <li class="flex items-center"><span class="text-indigo-400 mr-3">&#10003;</span>Bespoke Workflow Development</li>
+                        <li class="flex items-center"><span class="text-indigo-400 mr-3">&#10003;</span>Deep System Integration</li>
+                        <li class="flex items-center"><span class="text-indigo-400 mr-3">&#10003;</span>Advanced Security & SLA</li>
+                        <li class="flex items-center"><span class="text-indigo-400 mr-3">&#10003;</span>Priority 24/7 Support</li>
+                    </ul>
+                    <a href="#contact" class="w-full text-center mt-auto btn-primary text-white font-bold py-3 px-6 rounded-lg">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-20 bg-black bg-opacity-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 section-title reveal">Our Process</h2>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16">
+                 <!-- Step 1 -->
+                <div class="flex items-center flex-col text-center reveal">
+                    <div class="flex items-center justify-center h-20 w-20 rounded-full bg-indigo-600 text-white font-bold text-2xl mb-4 border-4 border-indigo-400">1</div>
+                    <h3 class="font-bold mb-2">Discovery & Strategy</h3>
+                    <p class="text-gray-400 text-sm max-w-xs">We analyze your needs and co-create a roadmap for your AI agent.</p>
+                </div>
+                 <!-- Step 2 -->
+                <div class="flex items-center flex-col text-center reveal">
+                    <div class="flex items-center justify-center h-20 w-20 rounded-full bg-indigo-600 text-white font-bold text-2xl mb-4 border-4 border-indigo-400">2</div>
+                    <h3 class="font-bold mb-2">Development & Training</h3>
+                    <p class="text-gray-400 text-sm max-w-xs">Our experts build and train the agent using cutting-edge models.</p>
+                </div>
+                 <!-- Step 3 -->
+                <div class="flex items-center flex-col text-center reveal">
+                    <div class="flex items-center justify-center h-20 w-20 rounded-full bg-indigo-600 text-white font-bold text-2xl mb-4 border-4 border-indigo-400">3</div>
+                    <h3 class="font-bold mb-2">Integration & Launch</h3>
+                    <p class="text-gray-400 text-sm max-w-xs">We seamlessly integrate the agent into your existing systems and go live.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="py-20">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 section-title reveal">Pioneering the AI Revolution</h2>
+            <p class="text-lg text-gray-400 max-w-3xl mx-auto reveal">
+                FORNEXUS was founded on the belief that artificial intelligence should be an accessible and powerful tool for every business. We are a team of passionate AI researchers, engineers, and strategists dedicated to pushing the boundaries of what's possible and delivering real-world value to our clients.
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-black bg-opacity-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 section-title reveal">Let's Build Together</h2>
+            <div class="max-w-xl mx-auto card rounded-2xl p-8 reveal">
+                <form id="contact-form">
+                    <div class="mb-4">
+                        <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Full Name</label>
+                        <input type="text" id="name" name="name" class="w-full bg-gray-900 border border-gray-700 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
+                        <input type="email" id="email" name="email" class="w-full bg-gray-900 border border-gray-700 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Your Message</label>
+                        <textarea id="message" name="message" rows="4" class="w-full bg-gray-900 border border-gray-700 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500" required></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn-primary text-white font-bold py-3 px-8 rounded-lg w-full">
+                            Send Inquiry via WhatsApp
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 text-center text-gray-500 text-sm">
+        <div class="container mx-auto px-6">
+            <p>&copy; 2025 FORNEXUS. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JS for particles and animations -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Particles.js Configuration
+        particlesJS('particles-js', {
+            "particles": { "number": { "value": 80, "density": { "enable": true, "value_area": 800 } }, "color": { "value": "#4f46e5" }, "shape": { "type": "circle", }, "opacity": { "value": 0.5, "random": false, }, "size": { "value": 3, "random": true, }, "line_linked": { "enable": true, "distance": 150, "color": "#4f46e5", "opacity": 0.4, "width": 1 }, "move": { "enable": true, "speed": 2, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false, } }, "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true }, "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 1 } }, "push": { "particles_nb": 4 }, } }, "retina_detect": true
+        });
+
+        // Scroll Reveal Animation
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                } else {
+                    reveals[i].classList.remove("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal(); // Run on load
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('bg-black', 'bg-opacity-80', 'backdrop-blur-sm');
+            } else {
+                header.classList.remove('bg-black', 'bg-opacity-80', 'backdrop-blur-sm');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // --- Contact Form to WhatsApp Redirect ---
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+            const whatsappNumber = '918098459038'; 
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            const messageText = `Hello FORNEXUS,\nI have an inquiry from the website.\n\n*Name:* ${name}\n*Email:* ${email}\n*Message:* ${message}`;
+            const encodedMessage = encodeURIComponent(messageText);
+            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+            window.open(whatsappURL, '_blank');
+        });
+
+        // --- Gemini API Idea Generator ---
+        const ideaForm = document.getElementById('idea-generator-form');
+        const ideaInput = document.getElementById('idea-input');
+        const ideaResults = document.getElementById('idea-results');
+        const ideaLoader = document.getElementById('idea-loader');
+        const generateButton = document.getElementById('generate-button');
+        const ideaError = document.getElementById('idea-error');
+
+        ideaForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const userInput = ideaInput.value.trim();
+            if (!userInput) return;
+
+            ideaLoader.style.display = 'flex';
+            generateButton.disabled = true;
+            generateButton.textContent = 'Generating...';
+            ideaResults.innerHTML = '';
+            ideaError.classList.add('hidden');
+
+            try {
+                const prompt = `Based on the following business description, generate exactly three creative and practical AI agent ideas. The business is: "${userInput}".`;
+                let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+
+                const payload = {
+                    contents: chatHistory,
+                    generationConfig: {
+                        responseMimeType: "application/json",
+                        responseSchema: {
+                            type: "OBJECT",
+                            properties: {
+                                "ideas": {
+                                    "type": "ARRAY",
+                                    "items": {
+                                        "type": "OBJECT",
+                                        "properties": {
+                                            "title": { "type": "STRING" },
+                                            "description": { "type": "STRING" }
+                                        },
+                                        required: ["title", "description"]
+                                    }
+                                }
+                            },
+                        }
+                    }
+                };
+                
+                const apiKey = "AIzaSyCDg_s4EoHglYQ-9r1l9HcTjICHTg_QUgU"; // API key will be provided by the environment
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+                
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API error: ${response.statusText}`);
+                }
+
+                const result = await response.json();
+
+                if (result.candidates && result.candidates[0].content.parts[0].text) {
+                    const jsonResponse = JSON.parse(result.candidates[0].content.parts[0].text);
+                    displayIdeas(jsonResponse.ideas);
+                } else {
+                    throw new Error("Could not parse ideas from the AI response.");
+                }
+
+            } catch (error) {
+                console.error("Error calling Gemini API:", error);
+                ideaError.textContent = `Sorry, we couldn't generate ideas at this moment. Error: ${error.message}`;
+                ideaError.classList.remove('hidden');
+            } finally {
+                ideaLoader.style.display = 'none';
+                generateButton.disabled = false;
+                generateButton.textContent = 'Generate Ideas';
+            }
+        });
+
+        function displayIdeas(ideas) {
+            if (!ideas || ideas.length === 0) {
+                 ideaError.textContent = "The AI didn't return any ideas. Please try a different description.";
+                 ideaError.classList.remove('hidden');
+                 return;
+            }
+            ideas.forEach(idea => {
+                const card = document.createElement('div');
+                card.className = 'card p-8 rounded-2xl text-left reveal active'; // active to show immediately
+                
+                const title = document.createElement('h3');
+                title.className = 'text-xl font-bold mb-3 text-indigo-400';
+                title.textContent = idea.title;
+
+                const description = document.createElement('p');
+                description.className = 'text-gray-400 text-sm';
+                description.textContent = idea.description;
+
+                card.appendChild(title);
+                card.appendChild(description);
+                ideaResults.appendChild(card);
+            });
+        }
+
+    </script>
+</body>
+</html>
